@@ -1,0 +1,51 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 1.6rem;
+  background:
+    radial-gradient(120% 90% at 100% 0%, #ff5d8f26, transparent 55%),
+    radial-gradient(120% 90% at 0% 100%, #ffb54720, transparent 55%),
+    #1b1524;
+  border: 1px solid #ffffff14;
+  box-shadow: 0 30px 70px -30px #000;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 1px;
+  background: linear-gradient(120deg, #ff5d8f80, transparent 40%, #ffb54780);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.card-top { display: flex; align-items: center; gap: 0.8rem; }
+.card-top img { width: 46px; height: 46px; border-radius: 12px; border: 1px solid #ffffff26; }
+.card-name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; line-height: 1.1; }
+.card-handle { font-size: 0.8rem; color: var(--muted); }
+.card-brand {
+  margin-left: auto; font-weight: 700; font-size: 0.8rem; color: var(--muted);
+  display: inline-flex; align-items: center; gap: 0.35rem;
+}
+
+.card-roast {
+  margin: 1.2rem 0 1.4rem;
+  font-size: 1.12rem; line-height: 1.5; font-weight: 500; color: var(--text);
+  text-wrap: pretty;
+}
+
+.card-foot { display: flex; align-items: center; justify-content: space-between; }
+.card-score { display: flex; align-items: baseline; gap: 0.5rem; }
+.card-score-label { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
+.card-score-val {
+  font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; line-height: 1;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.card-verdict {
+  font-weight: 700; font-size: 0.82rem; color: #1a1020;
+  background: var(--grad); border-radius: 999px; padding: 0.4rem 0.9rem;
+}
