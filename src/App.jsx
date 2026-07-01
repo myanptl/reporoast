@@ -116,7 +116,7 @@ export default function App() {
           </div>
 
           <div className="panel roast">
-            <span className="tag">🔥 The roast</span>
+            <span className="tag">The roast</span>
             <p>{roast.roast}</p>
           </div>
 
@@ -132,7 +132,7 @@ export default function App() {
           </div>
 
           <div className="panel hype">
-            <span className="tag">💜 The hype</span>
+            <span className="tag">The save</span>
             <p>{roast.hype}</p>
           </div>
 

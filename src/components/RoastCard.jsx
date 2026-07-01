@@ -17,7 +17,7 @@ export function RoastCard({ profile, roast }) {
       const dataUrl = await toPng(cardRef.current, {
         pixelRatio: 2,
         cacheBust: true,
-        backgroundColor: "#17121f",
+        backgroundColor: "#2b0f14",
       });
       const link = document.createElement("a");
       link.download = `reporoast-${profile.username}.png`;
@@ -53,9 +53,7 @@ export function RoastCard({ profile, roast }) {
             <div className="card-name">{profile.name}</div>
             <div className="card-handle mono">@{profile.username}</div>
           </div>
-          <div className="card-brand mono">
-            <span className="flame">🔥</span> RepoRoast
-          </div>
+          <div className="card-brand mono">RepoRoast</div>
         </div>
 
         <p className="card-roast">“{roast.roast}”</p>

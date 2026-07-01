@@ -10,24 +10,22 @@
       html, body { width: 1200px; height: 630px; }
       body {
         display: flex; flex-direction: column; justify-content: space-between;
-        padding: 72px 80px;
-        font-family: "Bricolage Grotesque", sans-serif; color: #f4efe9;
-        background:
-          radial-gradient(120% 80% at 50% 0%, #ff5d8f33 0%, #ffb54720 32%, transparent 62%),
-          radial-gradient(140% 100% at 50% -10%, #241a30 0%, #17121f 45%, #0f0b16 100%);
+        padding: 76px 84px;
+        font-family: "Bricolage Grotesque", sans-serif; color: #f6ece2;
+        background: #2b0f14;
       }
-      .brand { display: flex; align-items: center; gap: 14px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 26px; color: #a99fb5; letter-spacing: 0.02em; }
-      .dot { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(100deg, #ff5d8f, #ffb547); box-shadow: 0 0 20px #ff5d8f; }
-      h1 { font-size: 116px; font-weight: 800; line-height: 0.98; letter-spacing: -0.03em; }
-      .fire { background: linear-gradient(100deg, #ff5d8f, #ffb547); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      p { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 28px; color: #a99fb5; }
+      .brand { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 24px; color: #d6b3a8; letter-spacing: 0.16em; text-transform: uppercase; display: flex; align-items: center; gap: 14px; }
+      .dot { width: 12px; height: 12px; border-radius: 50%; background: #f5c14e; }
+      h1 { font-size: 118px; font-weight: 800; line-height: 0.96; letter-spacing: -0.04em; }
+      .gold { color: #f5c14e; }
       .row { display: flex; align-items: center; justify-content: space-between; }
-      .pill { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 24px; color: #1a1020; background: linear-gradient(100deg, #ff5d8f, #ffb547); padding: 12px 24px; border-radius: 999px; }
+      p { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 27px; color: #d6b3a8; }
+      .pill { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 23px; color: #2b0f14; background: #f5c14e; padding: 13px 26px; border-radius: 10px; }
     </style>
   </head>
   <body>
     <div class="brand"><span class="dot"></span> RepoRoast</div>
-    <h1>Get your GitHub<br /><span class="fire">roasted</span>.</h1>
+    <h1>Get your GitHub<br /><span class="gold">roasted</span>.</h1>
     <div class="row">
       <p>An AI roasts your repos — then hypes you back up.</p>
       <span class="pill">reporoast.vercel.app</span>
