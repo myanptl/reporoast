@@ -98,7 +98,7 @@ export default async function handler(req, res) {
     const key = process.env.ANTHROPIC_API_KEY;
     const result = key ? await callAnthropic(profile, key) : await callOllama(profile);
     res.status(200).json(result);
-  } catch (err) {
+  } catch {
     res.status(502).json({ error: "The comedian lost their nerve. Try again in a sec." });
   }
 }

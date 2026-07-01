@@ -28,7 +28,7 @@ export function RoastCard({ profile, roast }) {
     }
   }
 
-  const shareText = `I got my GitHub roasted 🔥 @${profile.username} scored ${roast.score}/100 — "${roast.verdict}". Roast yours:`;
+  const shareText = `I got my GitHub roasted. @${profile.username} scored ${roast.score}/100 — "${roast.verdict}". Roast yours:`;
   const shareUrl = "https://reporoast.vercel.app";
 
   async function share() {
