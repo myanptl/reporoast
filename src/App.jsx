@@ -1,9 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchProfile, GitHubError } from "./lib/github";
 import { getRoast } from "./lib/roastClient";
+import { heatColor } from "./lib/heat";
 import { RoastCard } from "./components/RoastCard";
 
 const SUGGESTIONS = ["torvalds", "gaearon", "myanptl", "sindresorhus"];
+
+/** Counts 0 → target with ease-out once active; snaps instantly for reduced motion. */
+function useCountUp(target, active, duration = 1200) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!active) {
+      setValue(0);
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(target);
+      return;
+    }
+    let raf;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(eased * target));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, active, duration]);
+  return value;
+}
 
 export default function App() {
   const [username, setUsername] = useState("");
@@ -48,6 +75,7 @@ export default function App() {
   }
 
   const showForm = status === "idle" || status === "error" || status === "loading";
+  const displayScore = useCountUp(roast?.score ?? 0, status === "done");
 
   return (
     <main className="stage wrap">
@@ -131,9 +159,22 @@ export default function App() {
             <div className="meter">
               <div className="row">
                 <span className="label">Roast heat</span>
-                <span className="val">{roast.score}<span style={{ color: "var(--faint)", fontSize: "1rem" }}>/100</span></span>
+                <span
+                  className={`val${roast.score >= 70 ? " val-scorching" : ""}`}
+                  style={{ color: heatColor(displayScore) }}
+                >
+                  {displayScore}<span style={{ color: "var(--faint)", fontSize: "1rem" }}>/100</span>
+                </span>
               </div>
-              <div className="track"><div className="fill" style={{ width: `${heat}%` }} /></div>
+              <div className="track">
+                <div
+                  className="fill"
+                  style={{
+                    width: `${heat}%`,
+                    background: `linear-gradient(90deg, var(--gold), ${heatColor(roast.score)})`,
+                  }}
+                />
+              </div>
               <span className="verdict">verdict: {roast.verdict}</span>
             </div>
           </div>

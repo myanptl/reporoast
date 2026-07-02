@@ -129,7 +129,19 @@ button { font-family: inherit; }
 .warming p { color: var(--muted); font-family: var(--font-mono); font-size: var(--step--1); }
 
 /* ---------- reveal ---------- */
-.reveal { width: 100%; margin-top: 2.5rem; display: grid; gap: 1rem; animation: rise 0.45s var(--ease) both; }
+.reveal { width: 100%; margin-top: 2.5rem; display: grid; gap: 1rem; }
+/* the set unfolds one beat at a time, like a comedian working the room */
+.reveal > * { animation: rise 0.45s var(--ease) both; }
+.reveal > *:nth-child(2) { animation-delay: 0.12s; }
+.reveal > *:nth-child(3) { animation-delay: 0.28s; }
+.reveal > *:nth-child(4) { animation-delay: 0.44s; }
+.reveal > *:nth-child(5) { animation-delay: 0.58s; }
+.reveal > *:nth-child(6) { animation-delay: 0.72s; }
+.reveal > *:nth-child(7) { animation-delay: 0.84s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal > * { animation: none; }
+  .meter .fill { transition: none; }
+}
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 .who { display: flex; align-items: center; gap: 0.85rem; justify-content: center; }
@@ -154,7 +166,8 @@ button { font-family: inherit; }
 .meter { display: grid; gap: 0.55rem; }
 .meter .row { display: flex; align-items: baseline; justify-content: space-between; }
 .meter .label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-.meter .val { font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; color: var(--gold); }
+.meter .val { font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; color: var(--gold); font-variant-numeric: tabular-nums; }
+.meter .val-scorching { text-shadow: 0 0 18px rgba(255, 83, 64, 0.5); }
 .meter .track { height: 10px; border-radius: 3px; background: #0000003d; overflow: hidden; }
 .meter .fill { height: 100%; border-radius: 3px; background: var(--gold); width: 0; transition: width 1s var(--ease); }
 .meter .verdict { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }

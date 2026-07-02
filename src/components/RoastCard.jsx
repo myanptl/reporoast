@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
+import { heatColor } from "../lib/heat";
 import "./roast-card.css";
 
 /**
@@ -61,7 +62,7 @@ export function RoastCard({ profile, roast }) {
         <div className="card-foot">
           <div className="card-score">
             <span className="mono card-score-label">HEAT</span>
-            <span className="card-score-val">{roast.score}</span>
+            <span className="card-score-val" style={{ color: heatColor(roast.score) }}>{roast.score}</span>
           </div>
           <div className="card-verdict mono">{roast.verdict}</div>
         </div>
