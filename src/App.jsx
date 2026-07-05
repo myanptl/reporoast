@@ -6,6 +6,29 @@ import { RoastCard } from "./components/RoastCard";
 
 const SUGGESTIONS = ["torvalds", "gaearon", "myanptl", "sindresorhus"];
 
+const WARMUP_LINES = [
+  "tapping the mic…",
+  "pulling your commit history…",
+  "oh. oh no.",
+  "writing material…",
+  "the crowd smells blood…",
+];
+
+/** Cycles through warm-up quips while loading; holds the first line for reduced motion. */
+function useWarmupLine(active) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (!active) {
+      setI(0);
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setI((n) => (n + 1) % WARMUP_LINES.length), 1600);
+    return () => clearInterval(id);
+  }, [active]);
+  return WARMUP_LINES[i];
+}
+
 /** Counts 0 → target with ease-out once active; snaps instantly for reduced motion. */
 function useCountUp(target, active, duration = 1200) {
   const [value, setValue] = useState(0);
@@ -76,6 +99,7 @@ export default function App() {
 
   const showForm = status === "idle" || status === "error" || status === "loading";
   const displayScore = useCountUp(roast?.score ?? 0, status === "done");
+  const warmupLine = useWarmupLine(status === "loading");
 
   return (
     <main className="stage wrap">
@@ -83,9 +107,12 @@ export default function App() {
 
       {showForm && (
         <section className="hero">
-          <h1>
-            Get your GitHub <span className="fire">roasted</span>.
-          </h1>
+          <p className="eyebrow">Tonight only · no commit is safe</p>
+          <div className="marquee">
+            <h1>
+              Get your GitHub <span className="fire">roasted</span>.
+            </h1>
+          </div>
           <p>An AI steps up to the mic, roasts your repos, then hypes you back up. Enter a username and take the heat.</p>
 
           <form className="roastform" onSubmit={handleSubmit}>
@@ -134,12 +161,15 @@ export default function App() {
               <line x1="8" y1="21" x2="16" y2="21" />
             </svg>
           </div>
-          <p>tapping the mic…</p>
+          <p>{warmupLine}</p>
         </section>
       )}
 
       {status === "done" && profile && roast && (
         <section className="reveal" aria-live="polite">
+          <p className="letterboard">
+            The roast of <b>@{profile.username}</b>
+          </p>
           <div className="who">
             <img src={profile.avatar} alt="" />
             <div>
