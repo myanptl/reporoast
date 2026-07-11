@@ -1,6 +1,30 @@
 // Vercel serverless function: turns a GitHub profile summary into a roast + hype.
 // Prod: Anthropic Claude (needs ANTHROPIC_API_KEY). Local `vercel dev`: falls back to Ollama.
 
+// Per-IP token bucket, shared across invocations on a warm instance.
+// No external state — resets on cold start, but stops sustained key-burning loops.
+const RATE_CAPACITY = 5; // burst
+const RATE_REFILL_PER_SEC = 5 / 60; // 5 roasts/minute sustained
+const buckets = new Map();
+
+function takeToken(ip) {
+  // Bound memory: a flood of unique IPs would grow the map forever on a warm
+  // instance. Clearing briefly resets limits, which is the cheaper failure.
+  if (buckets.size >= 5000) buckets.clear();
+  const now = Date.now();
+  const bucket = buckets.get(ip) ?? { tokens: RATE_CAPACITY, updated: now };
+  const refilled = Math.min(RATE_CAPACITY, bucket.tokens + ((now - bucket.updated) / 1000) * RATE_REFILL_PER_SEC);
+  const allowed = refilled >= 1;
+  buckets.set(ip, { tokens: allowed ? refilled - 1 : refilled, updated: now });
+  return allowed;
+}
+
+function clientIp(headers) {
+  // Prefer Vercel's platform-generated header, which clients cannot spoof.
+  const first = (v) => (Array.isArray(v) ? v[0] : v)?.split(",")[0]?.trim();
+  return first(headers["x-vercel-forwarded-for"]) || first(headers["x-real-ip"]) || first(headers["x-forwarded-for"]) || "unknown";
+}
+
 const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-haiku-4-5";
 const OLLAMA_URL = "http://127.0.0.1:11434/api/chat";
@@ -86,6 +110,11 @@ async function callOllama(profile) {
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
+    return;
+  }
+  if (!takeToken(clientIp(req.headers))) {
+    res.setHeader("Retry-After", "12");
+    res.status(429).json({ error: "Easy there — the comedian needs a breather. Try again in a few seconds." });
     return;
   }
   const profile = req.body?.profile;
