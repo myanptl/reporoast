@@ -28,3 +28,6 @@ dist-ssr
 *.local
 .env
 .vercel
+
+# graphify analysis output (generated, not source)
+graphify-out/
