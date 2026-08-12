@@ -1,8 +1,10 @@
 # 🔥 RepoRoast
 
-An AI steps up to the mic, roasts your GitHub, then hypes you back up. Enter a username → get a savage-but-kind roast, a 0–100 heat score, and a shareable card. No login, nothing stored.
+[![RepoRoast](docs/screenshot.jpeg)](https://reporoast-alpha.vercel.app)
 
-**Live:** https://reporoast.vercel.app · Built by [Myan Patel](https://myan-portfolio.vercel.app)
+An AI steps up to the mic, roasts your GitHub, then hypes you back up. Enter a username → get a savage-but-kind roast, a 0 to 100 heat score, and a shareable card. No login, nothing stored.
+
+**Live:** https://reporoast-alpha.vercel.app · Built by [Myan Patel](https://myan-portfolio.vercel.app)
 
 ## How it works
 
