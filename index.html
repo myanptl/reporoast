@@ -11,12 +11,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="RepoRoast — get your GitHub roasted" />
     <meta property="og:description" content="An AI roasts your GitHub, then hypes you back up. Enter a username, get the heat." />
-    <meta property="og:image" content="/og.png" />
-    <meta property="og:url" content="https://reporoast.vercel.app" />
+    <!-- Absolute: scrapers do not resolve a relative og:image, and the URL was
+         pointing at reporoast.vercel.app, which is not this site. -->
+    <meta property="og:image" content="https://reporoast-alpha.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="RepoRoast, an AI roast of a GitHub profile with a heat score" />
+    <meta property="og:url" content="https://reporoast-alpha.vercel.app/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="RepoRoast — get your GitHub roasted" />
     <meta name="twitter:description" content="An AI roasts your GitHub, then hypes you back up." />
-    <meta name="twitter:image" content="/og.png" />
+    <meta name="twitter:image" content="https://reporoast-alpha.vercel.app/og.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
