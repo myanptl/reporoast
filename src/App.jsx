@@ -231,7 +231,7 @@ export default function App() {
       )}
 
       <footer className="foot">
-        Built by <a href="https://myan-portfolio.vercel.app" target="_blank" rel="noopener noreferrer">Myan Patel</a>{" "}
+        Built by <a href="https://myanptl.vercel.app" target="_blank" rel="noopener noreferrer">Myan Patel</a>{" "}
         · roasts are AI comedy, not code review · no login, nothing stored
       </footer>
     </main>
