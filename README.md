@@ -1,40 +1,18 @@
-# 🔥 RepoRoast
+# RepoRoast
 
 [![RepoRoast](docs/screenshot.jpeg)](https://reporoast-alpha.vercel.app)
 
-An AI steps up to the mic, roasts your GitHub, then hypes you back up. Enter a username → get a savage-but-kind roast, a 0 to 100 heat score, and a shareable card. No login, nothing stored.
+Roasts your GitHub, then hypes you up.
 
-**Live:** https://reporoast-alpha.vercel.app · Built by [Myan Patel](https://myan-portfolio.vercel.app)
+https://reporoast-alpha.vercel.app
 
-## How it works
-
-1. Fetches public GitHub data client-side (repos, stars, languages, staleness).
-2. A Vercel serverless function (`/api/roast`) sends a compact profile summary to **Claude Haiku**, which returns a structured roast + hype + score.
-3. The result renders as a spotlight-styled reveal + a downloadable/shareable **Roast Card**.
-
-## Stack
-
-React 19 + Vite · Vercel serverless function · Anthropic Claude API · `html-to-image` for the share card. No database — nothing is persisted.
-
-## Local dev
+## Run it
 
 ```bash
 npm install
-npm run dev          # UI runs with a local mock roast (no key needed)
+npm run dev
 ```
 
-The `/api/roast` function prefers `ANTHROPIC_API_KEY`; with no key it falls back to a local **Ollama** model (`qwen2.5-coder:3b`) so you can test the real pipeline offline:
+Runs with a mock roast locally. Set `ANTHROPIC_API_KEY` for the real one.
 
-```bash
-node scripts/test-roast.mjs <github-username>   # end-to-end roast via Ollama
-```
-
-## Deploy (Vercel)
-
-1. Import the repo in Vercel (auto-detects Vite + `/api`).
-2. Add env var **`ANTHROPIC_API_KEY`** (Project → Settings → Environment Variables).
-3. Deploy. That's it.
-
-## Notes
-
-Roasts are AI comedy, not code review. The prompt punches at *habits* (missing READMEs, abandoned repos, one-language-forever), never at people.
+MIT licence.
